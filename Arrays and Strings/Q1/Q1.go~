@@ -17,6 +17,8 @@ func main() {
 	}
 }
 
+// Decided to make it with the use of an additonal data structure (the boolean array)
+
 func unique(s string) bool {
 	b := []byte(s)
 	d := make([]bool, 95)

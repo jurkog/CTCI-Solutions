@@ -1,3 +1,8 @@
+/* Q1: Implement an algorithm to determine if a string has all unique characters. What
+if you cannot use additional data structures? */
+
+// If I didn't use any additional data structures, I would be forced to some sort of comparison based algorithm which would give us O(n log n) solution at best if I were to sort the list.
+
 package main
 
 import (
