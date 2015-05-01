@@ -23,3 +23,7 @@ func (sb *StringBuffer) ToString() string {
 func NewBuffer() *StringBuffer{
 	return &StringBuffer{}
 }
+
+func (sb *StringBuffer) Length() int {
+	return len(sb.buffer)
+}
