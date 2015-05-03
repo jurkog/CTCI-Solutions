@@ -22,7 +22,7 @@ func NewMap() *HashMap {
 	return &HashMap{}
 }
 
-func (h *HashMap) AddEntry(k, v string) {
+func (h *HashMap) Put(k, v string) {
 	entry := &HashEntry{k, v, nil, hashCode(k)}
 	h.inputEntry(entry)
 }
@@ -41,6 +41,39 @@ func (h *HashMap) Get(k string) string {
 		current = current.next
 	}
 	return "NULL"
+}
+
+func (h *HashMap) Delete(k string) {
+	index := hashCode(k) % MAP_LENGTH
+	current := h.GetEntry(index)
+	// Empty list
+	if current == nil {
+		return
+	}
+	// If root is the node to be deleted
+	if current.key == k {
+		h.entries[index].root = current.next 
+		current = nil
+		return
+	}
+	for current.next != nil {
+		if current.next.key == k {
+			// Tail is not the node being deleted
+			if current.next.next != nil {
+				remainder := current.next.next
+				current.next = nil
+				current.next = remainder
+				return
+			} else {
+				// Tail is being deleted
+				current.next = nil
+				h.entries[index].tail = current
+				return
+			}
+		}
+		current = current.next
+	}
+	
 }
 
 /* HashEntry functions */
