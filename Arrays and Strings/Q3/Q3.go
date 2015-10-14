@@ -10,7 +10,7 @@ import (
 func main() {
 	a := "noitapertum"
 	b := "permutation"
-	fmt.Println("Are:",a,"and:",b,"permutations of each other?", permutationCheck(a, b))
+	fmt.Println("Are:", a, "and:", b, "permutations of each other?", permutationCheck(a, b))
 }
 
 func permutationCheck(c, d string) bool {
@@ -19,30 +19,27 @@ func permutationCheck(c, d string) bool {
 		return false
 	}
 
-	a, b:= []rune(c), []rune(d)
-	// Sorting string a
-	for i := 0; i < len(a) - 1; i++ {
-		for j:= len(a) - 1; j > i; j-- {
-			if a[i] > a[j] {
-				a[i], a[j] = a[j], a[i]
-			}
+	occurs := make(map[rune]int)
+	for _, c := range c {
+		_, ok := occurs[c]
+		if !ok {
+			occurs[c] = 0
 		}
+		occurs[c]++
 	}
 
-	// Sorting string b
-	for i := 0; i < len(b) - 1; i++ {
-		for j:= len(b) - 1; j > i; j-- {
-			if b[i] > b[j] {
-				b[i], b[j] = b[j], b[i]
-			}
+	for _, c := range d {
+		v, ok := occurs[c]
+		if !ok || v == 0 {
+			return false
 		}
-	}	
+		occurs[c]--
+	}
 
-	// Revert back to strings
-	c = string(a)
-	d = string(b)
-
-	// Return the boolean value of their equality
-	return c == d
+	for _, v := range occurs {
+		if v != 0 {
+			return false
+		}
+	}
+	return true
 }
-
